@@ -8,13 +8,28 @@ export type UserProps = {
 };
 
 export class UserEntity extends Entity<UserProps> {
-  constructor(public readonly props: UserProps) {
-    super(props);
+  constructor(
+    public readonly props: UserProps,
+    id?: string,
+  ) {
+    super(props, id);
     this.props.createdAt = this.props.createdAt ?? new Date();
+  }
+
+  update(value: string) {
+    this.name = value;
+  }
+
+  updatePassword(value: string) {
+    this.password = value;
   }
 
   get name(): string {
     return this.props.name;
+  }
+
+  private set name(name: string) {
+    this.props.name = name;
   }
 
   get email(): string {
@@ -23,6 +38,10 @@ export class UserEntity extends Entity<UserProps> {
 
   get password(): string {
     return this.props.password;
+  }
+
+  private set password(password: string) {
+    this.props.password = password;
   }
 
   get createdAt(): Date {
